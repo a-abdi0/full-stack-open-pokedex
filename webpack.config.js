@@ -15,39 +15,22 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
-        },
+          options: {
+            presets: ['@babel/preset-env', ['@babel/preset-react', { runtime: 'automatic' }]]
+          }
+        }
       },
-      {
-        test: /\.html$/,
-        use: [
-          {
-            loader: "html-loader",
-          },
-        ],
-      },
-      {
-        test: /\.css$/,
-        use: [
-          {
-            loader: "style-loader",
-          },
-          {
-            loader: "css-loader",
-          },
-        ],
-      }
-    ],
+      { test: /\.html$/, use: ["html-loader"] },
+      { test: /\.css$/, use: ['style-loader', 'css-loader'] }
+    ]
   },
-  resolve: {
-    extensions: ["*", ".js", ".jsx"],
-  },
+  resolve: { extensions: [".js", ".jsx"] },
   devServer: {
     historyApiFallback: true,
+    static: { directory: path.join(__dirname, 'dist') },
+    port: 8080,
   },
   plugins: [
-    new HtmlWebPackPlugin({
-      template: "./public/index.html",
-      filename: "./index.html",
-    }),
-  ],
+    new HtmlWebPackPlugin({ template: "./public/index.html", filename: "index.html" })
+  ]
 };

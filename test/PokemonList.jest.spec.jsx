@@ -1,19 +1,18 @@
-import React from 'react'
-import { render, screen } from '@testing-library/react'
-import { BrowserRouter } from 'react-router-dom'
-import '@testing-library/jest-dom'
-import PokemonList from '../src/PokemonList'
-
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
+import '@testing-library/jest-dom';
+import PokemonList from '../src/PokemonList';
 
 const pokemonList = [{
-  url: 'https://pokeapi.co/api/v2/pokemon/1/',
-  name: 'bulbasaur',
-  id: 1
+  url: 'https://pokeapi.co/api/v2/pokemon/1/', name: 'bulbasaur', id: 1
 }, {
-  url: 'https://pokeapi.co/api/v2/pokemon/133/',
-  name: 'eevee',
-  id: 133
-}]
+  url: 'https://pokeapi.co/api/v2/pokemon/133/', name: 'eevee', id: 133
+}];
+
+beforeAll(() => {
+  jest.spyOn(console, 'warn').mockImplementation(() => {});
+});
 
 describe('<PokemonList />', () => {
   it('should render items', () => {
@@ -21,8 +20,8 @@ describe('<PokemonList />', () => {
       <BrowserRouter>
         <PokemonList pokemonList={pokemonList} />
       </BrowserRouter>
-    )
-    expect(screen.getByText('bulbasaur')).toBeVisible()
-    expect(screen.getByText('eevee')).toBeVisible()
-  })
-})
+    );
+    expect(screen.getByText('bulbasaur')).toBeVisible();
+    expect(screen.getByText('eevee')).toBeVisible();
+  });
+});
